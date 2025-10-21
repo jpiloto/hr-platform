@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hr-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hr-system
+  template:
+    metadata:
+      labels:
+        app: hr-system
+    spec:
+      containers:
+        - name: hr-system
+          image: jpiloto78/hr-system:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: kafka:9092

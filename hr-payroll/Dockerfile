@@ -6,11 +6,14 @@ RUN apt-get update && apt-get install -y git
 WORKDIR /app
 
 # Clone the repo
-RUN git clone https://github.com/jpiloto/hr-payroll.git .  # or hr-system
+RUN git clone https://github.com/jpiloto/hr-payroll.git .
+RUN chmod +x mvnw
+
+RUN ./mvnw clean package -DskipTests
 
 # Build the app
 RUN ./mvnw clean package -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/hr-payroll.jar"]  # or hr-system.jar
+CMD ["java", "-jar", "target/hr-payroll-0.0.1-SNAPSHOT.jar"]
