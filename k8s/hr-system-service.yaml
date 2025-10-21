@@ -7,6 +7,6 @@ spec:
   selector:
     app: hr-system
   ports:
-    - port: 8081
-      targetPort: 8081
-      nodePort: 30081
+    - port: 8080       # External service port
+      targetPort: 8080 # Matches containerPort in deployment
+      nodePort: 30081  # Optional fixed NodePort

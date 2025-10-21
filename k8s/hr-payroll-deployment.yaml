@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hr-system
+  name: hr-payroll
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hr-system
+      app: hr-payroll
   template:
     metadata:
       labels:
-        app: hr-system
+        app: hr-payroll
     spec:
       containers:
-        - name: hr-system
-          image: jpiloto78/hr-system:latest
+        - name: hr-payroll
+          image: jpiloto78/hr-payroll:latest
           ports:
-            - containerPort: 8080  # Updated to match typical Spring Boot default
+            - containerPort: 8081
           env:
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
               value: kafka:9092
@@ -30,12 +30,12 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: 8080
+              port: 8081
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: 8080
+              port: 8081
             initialDelaySeconds: 30
             periodSeconds: 10
